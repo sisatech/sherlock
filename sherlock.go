@@ -88,6 +88,7 @@ func CatchAll(err *error) {
 		err = nil
 		return
 	}
+
 	x, ok := r.(*report)
 	if !ok {
 		x, ok := r.(error)
@@ -97,8 +98,6 @@ func CatchAll(err *error) {
 		fmt.Fprintf(os.Stderr, "%v\n", string(debug.Stack()))
 		panic(r)
 	} else if x.pkg != caller() {
-		fmt.Fprintf(os.Stderr, "%v\n", x.err.Error())
-	} else {
 		fmt.Fprintf(os.Stderr, "%v\n", x.err.Error())
 	}
 	*err = x.err
