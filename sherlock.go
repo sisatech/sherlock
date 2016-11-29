@@ -95,10 +95,10 @@ func CatchAll(err *error) {
 		if ok {
 			fmt.Fprintf(os.Stderr, "\n%v\n\n", x.Error())
 		}
-		fmt.Fprintf(os.Stderr, "%v\n", string(debug.Stack()))
+		fmt.Fprintf(os.Stderr, "Y: %v\n", string(debug.Stack()))
 		panic(r)
 	} else if x.pkg != caller() {
-		fmt.Fprintf(os.Stderr, "%v\n", x.err.Error())
+		fmt.Fprintf(os.Stderr, "X: %v\n", x.err.Error())
 	}
 	*err = x.err
 }
