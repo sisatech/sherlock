@@ -65,7 +65,19 @@ func output(x interface{}, expected bool) {
 
 	stack := string(debug.Stack())
 	lines := strings.Split(string(debug.Stack()), "\n")
-	stack = strings.Join(lines[cut:], "\n")
+
+	tmp := lines[cut:]
+
+	var out []string
+
+	for _, x := range tmp {
+		if !strings.Contains(x, "github.com/sisatech/sherlock.Try") &&
+			!strings.Contains(x, "github.com/sisatech/sherlock/try.go") {
+			out = append(out, x)
+		}
+	}
+
+	stack = strings.Join(out, "\n")
 
 	fmt.Fprintf(os.Stderr, "%v: %v\n\n%v\n%v\n", str, x, lines[0], stack)
 
