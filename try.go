@@ -6,9 +6,13 @@ func Try(fn func()) error {
 
 	var err error
 
-	defer catch(&err, false)
+	func() {
 
-	fn()
+		defer catch(&err, false)
+
+		fn()
+
+	}()
 
 	return err
 

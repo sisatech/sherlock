@@ -23,6 +23,7 @@ func catch(err *error, loud bool) {
 
 	// check if panic was thrown by pi
 	report, ok := r.(*report)
+
 	if ok {
 
 		// panic was thrown by pi
@@ -55,7 +56,7 @@ func catch(err *error, loud bool) {
 
 func output(x interface{}, expected bool) {
 
-	cut := 9
+	cut := 11
 	str := "intercepted unexpected panic"
 	if expected {
 		cut += 2
