@@ -56,28 +56,31 @@ func catch(err *error, loud bool) {
 
 func output(x interface{}, expected bool) {
 
-	cut := 11
 	str := "intercepted unexpected panic"
 	if expected {
-		cut += 2
 		str = "intercepted thrown error"
 	}
 
-	stack := string(debug.Stack())
 	lines := strings.Split(string(debug.Stack()), "\n")
 
-	tmp := lines[cut:]
+	tmp := lines
 
 	var out []string
 
 	for _, x := range tmp {
 		if !strings.Contains(x, "github.com/sisatech/sherlock.Try") &&
-			!strings.Contains(x, "github.com/sisatech/sherlock/try.go") {
+			!strings.Contains(x, "github.com/sisatech/sherlock/try.go") &&
+			!strings.Contains(x, "github.com/sisatech/sherlock.output") &&
+			!strings.Contains(x, "github.com/sisatech/sherlock.catch") &&
+			!strings.Contains(x, "github.com/sisatech/sherlock/catch.go") &&
+			!strings.Contains(x, "runtime/debug/stack.go") &&
+			!strings.Contains(x, "runtime/debug.Stack") &&
+			!strings.Contains(x, "runtime/panic.go") {
 			out = append(out, x)
 		}
 	}
 
-	stack = strings.Join(out, "\n")
+	stack := strings.Join(out, "\n")
 
 	fmt.Fprintf(os.Stderr, "%v: %v\n\n%v\n%v\n", str, x, lines[0], stack)
 

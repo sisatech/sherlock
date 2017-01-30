@@ -20,5 +20,4 @@ functions to do away with this practice.
 
 Written by Sisa-Tech Pty Ltd
 */
-
 package sherlock
